@@ -18,9 +18,21 @@ class MovieModal extends Component {
     if (this.props.modal.isOpen === true) {
       return (
         <div className={styles.modal}>
-          <h1 onClick={() => this.props.closeModal()} className={styles.title}>
-            {this.props.details.title}
-          </h1>
+          <div className={styles.modalBox}>
+            <h1
+              onClick={() => this.props.closeModal()}
+              className={styles.title}
+            >
+              {this.props.details.title}
+            </h1>
+            <img
+              className={styles.image}
+              src={`https://image.tmdb.org/t/p/original${
+                this.props.details.backdrop_path
+              }`}
+              alt=""
+            />
+          </div>
         </div>
       );
     } else {

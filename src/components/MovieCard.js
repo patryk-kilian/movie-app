@@ -8,7 +8,9 @@ class MovieCard extends Component {
     const { movie } = this.props;
     return (
       <div
-        onClick={() => this.props.openModal(movie.id)}
+        onClick={() => {
+          this.props.openModal(movie.id);
+        }}
         className={styles.card}
       >
         <h1 className={styles.title}>{movie.title}</h1>
