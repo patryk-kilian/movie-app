@@ -3,6 +3,7 @@ import styles from "./MovieModal.css";
 import { connect } from "react-redux";
 import { closeModal } from "../actions/modalActions";
 import { getDetails } from "../actions/moviesActions";
+import { FaTimes } from "react-icons/fa";
 
 class MovieModal extends Component {
   componentWillReceiveProps(nextProps) {
@@ -19,19 +20,29 @@ class MovieModal extends Component {
       return (
         <div className={styles.modal}>
           <div className={styles.modalBox}>
-            <h1
+            <h1 className={styles.title}>{this.props.details.title}</h1>
+            <p className={styles.description}>{this.props.details.overview}</p>
+            <div className={styles.ratings}>
+              <span className={styles.rating}>
+                {this.props.details.vote_average * 10}
+                <span>%</span>
+              </span>
+            </div>
+            <figure className={styles.modalFig}>
+              <img
+                className={styles.image}
+                src={`https://image.tmdb.org/t/p/original${
+                  this.props.details.backdrop_path
+                }`}
+                alt=""
+              />
+            </figure>
+            <button
               onClick={() => this.props.closeModal()}
-              className={styles.title}
+              className={styles.closeButton}
             >
-              {this.props.details.title}
-            </h1>
-            <img
-              className={styles.image}
-              src={`https://image.tmdb.org/t/p/original${
-                this.props.details.backdrop_path
-              }`}
-              alt=""
-            />
+              <FaTimes className={styles.closeIcon} />
+            </button>
           </div>
         </div>
       );

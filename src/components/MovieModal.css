@@ -7,14 +7,26 @@
   height: 100%;
   background-color: rgba(0,0,0,0.4);
   overflow: hidden;
+  background: linear-gradient(rgba(#fff,0.2),rgba(#fff,0.2));
 }
 
 .title {
-  color: red;
-  text-align: center;
+  text-align: left;
+  color: #fff;
+  font-size: 3rem;
+  /* background-color: rgba(0,0,0,.6); */
+  padding: 1rem 0;
+  margin: 0;
+}
+
+.description {
+  color: #fff;
+  width: 50%;
+  font-size: 2rem;
 }
 
 .modalBox {
+  padding: 3rem;
   width: 70%;
   height: 70%;
   border: 10px solid white;
@@ -22,6 +34,18 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
+  /* padding: 0; */
+}
+
+.modalFig::after {
+  content: "";
+  background-image: linear-gradient( rgba(0,0,0, .5), rgba(0,0,0, .5));
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .image {
@@ -32,3 +56,59 @@
   height: 100%;
   z-index: -1;
 }
+
+.closeButton {
+  border: none;
+  background: transparent;
+  color: orange;
+  font-size: 5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: all 0.2s;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeButton:hover {
+  color: orangered;
+  font-size:  6rem;
+}
+
+.ratings {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10rem;
+  /* background-color: red; */
+  background-color: rgba(0,0,0,.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rating {
+  color:#fff;
+  width: 7rem;
+  height: 7rem;
+  font-size: 3rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  /* padding: 2rem; */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating span {
+  font-size: 2rem;
+}
+
+
