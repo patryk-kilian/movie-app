@@ -29,7 +29,7 @@
   padding: 3rem;
   width: 70%;
   height: 70%;
-  border: 10px solid white;
+  border: 10px solid #74b9ff;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -76,7 +76,8 @@
 
 .closeButton:hover {
   color: orangered;
-  font-size:  6rem;
+  transform: scale(1.1);
+  backface-visibility: hidden;
 }
 
 .ratings {
@@ -111,4 +112,29 @@
   font-size: 2rem;
 }
 
+.enter {
+  opacity: 0.01;
+}
 
+.enter .enterActive {
+  transition: opacity 0.5s ease-in;
+  opacity: 1;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exit .exitActive {
+  transition: opacity 0.3s ease-in;
+  opacity: 0.01;
+}
+
+.appear {
+  opacity: 0.01;
+
+  &.appearActive {
+    transition: opacity 0.5s ease-in;
+    opacity: 1;
+  }
+}

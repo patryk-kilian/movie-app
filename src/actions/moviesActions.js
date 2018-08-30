@@ -1,9 +1,9 @@
 import { FETCH_MOVIES, GET_DETAILS } from "./types";
 import { apiKey } from "../apiKey";
 
-export const fetchMovies = () => dispatch => {
+export const fetchMovies = page => dispatch => {
   fetch(
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=${page}`
   )
     .then(res => res.json())
     .then(movies =>

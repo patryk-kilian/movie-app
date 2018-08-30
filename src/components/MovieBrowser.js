@@ -3,11 +3,31 @@ import { fetchMovies } from "../actions/moviesActions";
 import { connect } from "react-redux";
 import MovieCard from "./MovieCard";
 import styles from "./MovieBrowser.css";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 class MovieBrowser extends Component {
-  componentDidMount() {
-    this.props.fetchMovies();
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPage: 1
+    };
   }
+
+  componentDidMount() {
+    this.props.fetchMovies(this.state.currentPage);
+  }
+
+  handlePagination = direction => {
+    let page = 1;
+    if (direction === "next") {
+      page = this.state.currentPage + 1;
+      this.props.fetchMovies(page);
+    } else if (direction === "prev" && this.state.currentPage > 1) {
+      page = this.state.currentPage - 1;
+      this.props.fetchMovies(page);
+    }
+    this.setState({ currentPage: page });
+  };
 
   render() {
     const { results } = this.props.movies;
@@ -18,6 +38,20 @@ class MovieBrowser extends Component {
           {results.map(movie => {
             return <MovieCard movie={movie} key={movie.id} />;
           })}
+          <div className={styles.paginationButtons}>
+            <button
+              onClick={() => this.handlePagination("prev")}
+              className={styles.paginationButton}
+            >
+              <FaArrowAltCircleLeft className={styles.icon} />
+            </button>
+            <button
+              onClick={() => this.handlePagination("next")}
+              className={styles.paginationButton}
+            >
+              <FaArrowAltCircleRight className={styles.icon} />
+            </button>
+          </div>
         </div>
       );
     } else {

@@ -1,14 +1,51 @@
+.tittleBox {
+  width: 100%;
+  background-color: #2d3436;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  transform: translateY(-10rem);
+  transition: transform .2s;
+}
+
+.infoBox {
+  width: 100%;
+  height: 4rem;
+  background-color: #2d3436;
+  padding: 1rem 0;
+  /* transform: translateY(10rem); */
+  transition: transform .2s;
+  position: absolute;
+  bottom: 0;
+}
+
 .title {
-  color: green;
+  text-align: center;
+  color: #74b9ff;
+  margin: 0;
+  width: 100%;
 }
 
 .card {
-  background-color: green;
   position: relative;
   height: 325px;
   width: 250px;
   overflow: hidden;
   margin: 10px;
+  cursor: pointer;
+}
+
+.card:hover .tittleBox {
+  transform: translateY(0);
+}
+
+.card:hover .infoBox {
+  transform: translateY(0);
+}
+
+.card:hover .image {
+  transform: scale(1.1);
 }
 
 .image {
@@ -17,4 +54,12 @@
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: -1;
+  transition: transform .2s;
+}
+
+.vote {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
