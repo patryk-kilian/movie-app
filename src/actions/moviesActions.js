@@ -1,4 +1,4 @@
-import { FETCH_MOVIES, GET_DETAILS } from "./types";
+import { FETCH_MOVIES, GET_DETAILS, SEARCH_MOVIES } from "./types";
 import { apiKey } from "../apiKey";
 
 export const fetchMovies = page => dispatch => {
@@ -9,6 +9,19 @@ export const fetchMovies = page => dispatch => {
     .then(movies =>
       dispatch({
         type: FETCH_MOVIES,
+        payload: movies
+      })
+    );
+};
+
+export const searchMovies = query => dispatch => {
+  fetch(
+    `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`
+  )
+    .then(res => res.json())
+    .then(movies =>
+      dispatch({
+        type: SEARCH_MOVIES,
         payload: movies
       })
     );

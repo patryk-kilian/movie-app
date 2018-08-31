@@ -59,7 +59,7 @@ class MovieModal extends Component {
         </div>
       );
     } else {
-      return <span />;
+      return null;
     }
   }
 }

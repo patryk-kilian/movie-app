@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { fetchMovies } from "../actions/moviesActions";
+import { fetchMovies, searchMovies } from "../actions/moviesActions";
 import { connect } from "react-redux";
 import MovieCard from "./MovieCard";
 import styles from "./MovieBrowser.css";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import SearchForm from "./SearchForm";
 
 class MovieBrowser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 1
+      currentPage: 1,
+      pipka: true
     };
   }
 
@@ -29,6 +31,17 @@ class MovieBrowser extends Component {
     this.setState({ currentPage: page });
   };
 
+  showSearch = () => {
+    this.setState({
+      pipka: false
+    });
+  };
+
+  showButtons = () => {
+    this.setState({ pipka: true });
+    this.props.fetchMovies(this.state.currentPage);
+  };
+
   render() {
     const { results } = this.props.movies;
 
@@ -38,28 +51,45 @@ class MovieBrowser extends Component {
           {results.map(movie => {
             return <MovieCard movie={movie} key={movie.id} />;
           })}
-          <div className={styles.paginationButtons}>
-            <button
-              onClick={() => this.handlePagination("prev")}
-              className={styles.paginationButton}
-            >
-              <FaArrowAltCircleLeft className={styles.icon} />
-            </button>
-            <button
-              onClick={() => this.handlePagination("next")}
-              className={styles.paginationButton}
-            >
-              <FaArrowAltCircleRight className={styles.icon} />
-            </button>
-          </div>
+          {(() => {
+            if (this.state.pipka) {
+              return (
+                <div className={styles.paginationButtons}>
+                  <button
+                    onClick={() => this.handlePagination("prev")}
+                    className={styles.paginationButton}
+                  >
+                    <FaArrowAltCircleLeft className={styles.icon} />
+                  </button>
+                  <button
+                    onClick={() => this.handlePagination("next")}
+                    className={styles.paginationButton}
+                  >
+                    <FaArrowAltCircleRight className={styles.icon} />
+                  </button>
+                </div>
+              );
+            } else {
+              return (
+                <div className={styles.searchBar}>
+                  <SearchForm />
+                  <button
+                    onClick={this.showButtons}
+                    className={styles.searchButton}
+                  >
+                    show top movies
+                  </button>
+                </div>
+              );
+            }
+          })()}
+          <button onClick={this.showSearch} className={styles.searchButton}>
+            search
+          </button>
         </div>
       );
     } else {
-      return (
-        <div>
-          <h1>ssadas</h1>
-        </div>
-      );
+      return null;
     }
   }
 }
@@ -70,5 +100,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchMovies }
+  { fetchMovies, searchMovies }
 )(MovieBrowser);
