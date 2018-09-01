@@ -1,34 +1,59 @@
 import React, { Component } from "react";
-import { fetchMovies, searchMovies } from "../actions/moviesActions";
+import { fetchTopMovies, searchMovies } from "../actions/moviesActions";
 import { connect } from "react-redux";
 import MovieCard from "./MovieCard";
 import styles from "./MovieBrowser.css";
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import SearchForm from "./SearchForm";
+import PaginationButtons from "./PaginationButtons";
 
 class MovieBrowser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 1,
-      pipka: true
+      topMoviesPage: 1,
+      searchResultsPage: 1,
+      pipka: true,
+      query: ""
     };
   }
 
   componentDidMount() {
-    this.props.fetchMovies(this.state.currentPage);
+    this.props.fetchTopMovies(this.state.fetchTopMovies);
   }
 
-  handlePagination = direction => {
+  handlePrevPage = () => {
     let page = 1;
-    if (direction === "next") {
-      page = this.state.currentPage + 1;
-      this.props.fetchMovies(page);
-    } else if (direction === "prev" && this.state.currentPage > 1) {
-      page = this.state.currentPage - 1;
-      this.props.fetchMovies(page);
+    if (this.state.pipka && this.state.topMoviesPage > 1) {
+      page = this.state.topMoviesPage - 1;
+      this.props.fetchTopMovies(page);
+      this.setState({ topMoviesPage: page });
+    } else if (!this.state.pipka && this.state.searchResultsPage > 1) {
+      page = this.state.searchResultsPage - 1;
+      this.props.searchMovies(this.state.query, page);
+      this.setState({ searchResultsPage: page });
     }
-    this.setState({ currentPage: page });
+  };
+
+  handleNextPage = () => {
+    let page = 1;
+    let totalPages = this.props.movies.items.total_pages;
+    if (this.state.pipka && this.state.topMoviesPage < totalPages) {
+      console.log(totalPages);
+      page = this.state.topMoviesPage + 1;
+      this.props.fetchTopMovies(page);
+      this.setState({ topMoviesPage: page });
+    } else if (!this.state.pipka && this.state.searchResultsPage < totalPages) {
+      console.log(totalPages);
+      page = this.state.searchResultsPage + 1;
+      this.props.searchMovies(this.state.query, page);
+      this.setState({ searchResultsPage: page });
+    }
+  };
+
+  queryHandler = query => {
+    this.setState({
+      query
+    });
   };
 
   showSearch = () => {
@@ -39,11 +64,12 @@ class MovieBrowser extends Component {
 
   showButtons = () => {
     this.setState({ pipka: true });
-    this.props.fetchMovies(this.state.currentPage);
+    this.props.fetchTopMovies(this.state.topMoviesPage);
   };
 
   render() {
-    const { results } = this.props.movies;
+    const { results } = this.props.movies.items;
+    const { items } = this.props.movies;
 
     if (results) {
       return (
@@ -52,27 +78,20 @@ class MovieBrowser extends Component {
             return <MovieCard movie={movie} key={movie.id} />;
           })}
           {(() => {
-            if (this.state.pipka) {
+            if (items.total_pages > 1) {
               return (
-                <div className={styles.paginationButtons}>
-                  <button
-                    onClick={() => this.handlePagination("prev")}
-                    className={styles.paginationButton}
-                  >
-                    <FaArrowAltCircleLeft className={styles.icon} />
-                  </button>
-                  <button
-                    onClick={() => this.handlePagination("next")}
-                    className={styles.paginationButton}
-                  >
-                    <FaArrowAltCircleRight className={styles.icon} />
-                  </button>
-                </div>
+                <PaginationButtons
+                  handleNextPage={this.handleNextPage}
+                  handlePrevPage={this.handlePrevPage}
+                />
               );
-            } else {
+            }
+          })()}
+          {(() => {
+            if (!this.state.pipka) {
               return (
                 <div className={styles.searchBar}>
-                  <SearchForm />
+                  <SearchForm queryHandler={this.queryHandler} />
                   <button
                     onClick={this.showButtons}
                     className={styles.searchButton}
@@ -95,10 +114,10 @@ class MovieBrowser extends Component {
 }
 
 const mapStateToProps = state => ({
-  movies: state.movies.items
+  movies: state.movies
 });
 
 export default connect(
   mapStateToProps,
-  { fetchMovies, searchMovies }
+  { fetchTopMovies, searchMovies }
 )(MovieBrowser);

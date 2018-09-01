@@ -9,6 +9,7 @@ class SearchForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     if (this.queryRef.current.value) {
+      this.props.queryHandler(this.queryRef.current.value);
       this.props.searchMovies(this.queryRef.current.value);
       event.currentTarget.reset();
     }

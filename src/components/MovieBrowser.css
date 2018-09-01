@@ -1,50 +1,16 @@
 .container {
   position: relative;
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 2rem;
+  padding: 2rem 0;
   padding-top: 9rem;
 }
 
-.paginationButtons {
-  position: absolute;
-  top: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 15%;
-}
 
-.paginationButton:first-child {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.paginationButton:last-child {
-  position: absolute;
-  right: 0;
-}
-
-.paginationButton {
-  background-color: transparent;
-  border-radius: 50%;
-  font-size: 5rem;
-  cursor: pointer;
-  padding: 0;
-  border: none;
-  display: flex;
-  transition: all .2s;
-  color: #0984e3;
-}
-
-.paginationButton:hover {
-  color: #0768b2;
-  transform: scale(1.1);
-}
 
 .searchButton {
   position: absolute;

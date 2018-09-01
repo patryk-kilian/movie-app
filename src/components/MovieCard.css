@@ -34,6 +34,8 @@
   overflow: hidden;
   margin: 10px;
   cursor: pointer;
+  animation-name: show;
+  animation-duration: 2s;
 }
 
 .card:hover .tittleBox {
@@ -62,4 +64,14 @@
   position: absolute;
   top: 0;
   right: 0;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

@@ -34,7 +34,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  /* padding: 0; */
+  transform-origin: top;
+  animation-name: appear;
+  animation-duration: 1s;
 }
 
 .modalFig::after {
@@ -112,29 +114,12 @@
   font-size: 2rem;
 }
 
-.enter {
-  opacity: 0.01;
-}
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
 
-.enter .enterActive {
-  transition: opacity 0.5s ease-in;
-  opacity: 1;
-}
-
-.exit {
-  opacity: 1;
-}
-
-.exit .exitActive {
-  transition: opacity 0.3s ease-in;
-  opacity: 0.01;
-}
-
-.appear {
-  opacity: 0.01;
-
-  &.appearActive {
-    transition: opacity 0.5s ease-in;
+  100% {
     opacity: 1;
   }
 }
