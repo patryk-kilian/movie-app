@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import MovieCard from "./MovieCard";
 import styles from "./MovieBrowser.css";
 import SearchForm from "./SearchForm";
-import PaginationButtons from "./PaginationButtons";
+import Pagination from "./Pagination";
+import { FaSearch } from "react-icons/fa";
 
 class MovieBrowser extends Component {
   constructor(props) {
@@ -12,8 +13,10 @@ class MovieBrowser extends Component {
     this.state = {
       topMoviesPage: 1,
       searchResultsPage: 1,
-      pipka: true,
-      query: ""
+      buttons: true,
+      search: false,
+      query: "",
+      heading: "Top Movies"
     };
   }
 
@@ -23,11 +26,11 @@ class MovieBrowser extends Component {
 
   handlePrevPage = () => {
     let page = 1;
-    if (this.state.pipka && this.state.topMoviesPage > 1) {
+    if (!this.state.search && this.state.topMoviesPage > 1) {
       page = this.state.topMoviesPage - 1;
       this.props.fetchTopMovies(page);
       this.setState({ topMoviesPage: page });
-    } else if (!this.state.pipka && this.state.searchResultsPage > 1) {
+    } else if (this.state.search && this.state.searchResultsPage > 1) {
       page = this.state.searchResultsPage - 1;
       this.props.searchMovies(this.state.query, page);
       this.setState({ searchResultsPage: page });
@@ -37,13 +40,11 @@ class MovieBrowser extends Component {
   handleNextPage = () => {
     let page = 1;
     let totalPages = this.props.movies.items.total_pages;
-    if (this.state.pipka && this.state.topMoviesPage < totalPages) {
-      console.log(totalPages);
+    if (!this.state.search && this.state.topMoviesPage < totalPages) {
       page = this.state.topMoviesPage + 1;
       this.props.fetchTopMovies(page);
       this.setState({ topMoviesPage: page });
-    } else if (!this.state.pipka && this.state.searchResultsPage < totalPages) {
-      console.log(totalPages);
+    } else if (this.state.search && this.state.searchResultsPage < totalPages) {
       page = this.state.searchResultsPage + 1;
       this.props.searchMovies(this.state.query, page);
       this.setState({ searchResultsPage: page });
@@ -52,18 +53,28 @@ class MovieBrowser extends Component {
 
   queryHandler = query => {
     this.setState({
-      query
+      query,
+      buttons: true,
+      heading: "Search Results",
+      searchResultsPage: 1
     });
   };
 
   showSearch = () => {
-    this.setState({
-      pipka: false
-    });
+    if (!this.state.search) {
+      this.setState({
+        buttons: false,
+        search: true
+      });
+    }
   };
 
-  showButtons = () => {
-    this.setState({ pipka: true });
+  showTopMovies = () => {
+    this.setState({
+      buttons: true,
+      search: false,
+      heading: "Top Movies"
+    });
     this.props.fetchTopMovies(this.state.topMoviesPage);
   };
 
@@ -73,38 +84,40 @@ class MovieBrowser extends Component {
 
     if (results) {
       return (
-        <div className={styles.container}>
-          {results.map(movie => {
-            return <MovieCard movie={movie} key={movie.id} />;
-          })}
-          {(() => {
-            if (items.total_pages > 1) {
-              return (
-                <PaginationButtons
-                  handleNextPage={this.handleNextPage}
-                  handlePrevPage={this.handlePrevPage}
-                />
-              );
-            }
-          })()}
-          {(() => {
-            if (!this.state.pipka) {
-              return (
-                <div className={styles.searchBar}>
-                  <SearchForm queryHandler={this.queryHandler} />
-                  <button
-                    onClick={this.showButtons}
-                    className={styles.searchButton}
-                  >
-                    show top movies
-                  </button>
-                </div>
-              );
-            }
-          })()}
-          <button onClick={this.showSearch} className={styles.searchButton}>
-            search
-          </button>
+        <div>
+          <h1 className={styles.heading}>{this.state.heading}</h1>
+          <div className={styles.container}>
+            {results.map(movie => {
+              return <MovieCard movie={movie} key={movie.id} />;
+            })}
+            {(() => {
+              if (items.total_pages > 1 && this.state.buttons) {
+                return (
+                  <Pagination
+                    handleNextPage={this.handleNextPage}
+                    handlePrevPage={this.handlePrevPage}
+                    searchPage={this.state.searchResultsPage}
+                    topMoviesPage={this.state.topMoviesPage}
+                    items={items}
+                    search={this.state.search}
+                  />
+                );
+              }
+            })()}
+            {(() => {
+              if (this.state.search) {
+                return (
+                  <SearchForm
+                    showTopMovies={this.showTopMovies}
+                    queryHandler={this.queryHandler}
+                  />
+                );
+              }
+            })()}
+            <button onClick={this.showSearch} className={styles.searchButton}>
+              <FaSearch />
+            </button>
+          </div>
         </div>
       );
     } else {

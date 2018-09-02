@@ -16,17 +16,42 @@ class MovieModal extends Component {
   }
 
   render() {
+    const { details } = this.props;
+
     if (this.props.modal.isOpen === true) {
       return (
         <div className={styles.modal}>
           <div className={styles.modalBox}>
-            <h1 className={styles.title}>{this.props.details.title}</h1>
-            <p className={styles.description}>{this.props.details.overview}</p>
-            <div className={styles.ratings}>
-              <span className={styles.rating}>
-                {this.props.details.vote_average * 10}
-                <span>%</span>
-              </span>
+            <h3 className={styles.title}>{details.title}</h3>
+            <p className={styles.description}>{details.overview}</p>
+            <div className={styles.info}>
+              <div className={styles.infoBox}>
+                <span className={styles.infoName}>rating</span>
+                <span className={styles.infoContent}>
+                  {details.vote_average}
+                  /10
+                </span>
+              </div>
+              <div className={styles.infoBox}>
+                <span className={styles.infoName}>budget</span>
+                <span className={styles.infoContent}>
+                  {details.budget > 1000000
+                    ? details.budget / 1000000 + " mln"
+                    : details.budget}
+                </span>
+              </div>
+              <div className={styles.infoBox}>
+                <span className={styles.infoName}>relase date</span>
+                <span className={styles.infoContent}>
+                  {details.release_date}
+                </span>
+              </div>
+              <div className={styles.infoBox}>
+                <span className={styles.infoName}>runtime</span>
+                <span className={styles.infoContent}>
+                  {details.runtime} min
+                </span>
+              </div>
             </div>
             <figure className={styles.modalFig}>
               <img

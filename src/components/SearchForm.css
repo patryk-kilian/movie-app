@@ -1,5 +1,53 @@
-.searchInput {
+.searchBar {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 4rem;
+  width: 40%;
+  left: 15%;
+  animation-name: appear;
+  animation-duration: 2s;
+  overflow: hidden;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  height: 3.5rem;
+  font-size: 2rem;
+  margin-right: 2px;
+}
+
+.button,
+.buttonTopMovies {
+  font-size: 2rem;
+  text-transform: uppercase;
+  border: none;
+  background-color: #0984e3;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: all .2s;
+}
+
+.button:hover,
+.buttonTopMovies:hover {
+  background-color:#0768b2;
+}
+
+.buttonTopMovies {
+  position: absolute;
+  right: 0;
+  top: 1px;
+}
+
+@keyframes appear {
+  0% {
+    max-width: 0;
+  }
+
+  100% {
+    max-width: 100%;
+  }
 }

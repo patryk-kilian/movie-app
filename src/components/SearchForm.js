@@ -8,23 +8,34 @@ class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    if (this.queryRef.current.value) {
-      this.props.queryHandler(this.queryRef.current.value);
-      this.props.searchMovies(this.queryRef.current.value);
-      event.currentTarget.reset();
-    }
+    this.props.queryHandler(this.queryRef.current.value);
+    this.props.searchMovies(this.queryRef.current.value);
+    event.currentTarget.reset();
   };
 
   render() {
     return (
-      <form
-        onSubmit={this.handleSubmit}
-        className={styles.searchInput}
-        action=""
-      >
-        <input ref={this.queryRef} type="search" />
-        <input type="submit" />
-      </form>
+      <div className={styles.searchBar}>
+        <form
+          onSubmit={this.handleSubmit}
+          className={styles.searchForm}
+          action=""
+        >
+          <input
+            className={styles.searchInput}
+            ref={this.queryRef}
+            type="search"
+            required
+          />
+          <input className={styles.button} type="submit" />
+        </form>
+        <button
+          className={styles.buttonTopMovies}
+          onClick={this.props.showTopMovies}
+        >
+          top movies
+        </button>
+      </div>
     );
   }
 }

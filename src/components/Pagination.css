@@ -1,22 +1,12 @@
-.paginationButtons {
+.pagination {
   position: absolute;
   top: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 15%;
+  right: 10rem;
+  width: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-.paginationButton:first-child {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.paginationButton:last-child {
-  position: absolute;
-  right: 0;
-}
-
 
 .paginationButton {
   background-color: transparent;
@@ -30,6 +20,10 @@
   color: #0984e3;
   animation-name: slidein;
   animation-duration: 1s;
+}
+
+.pages {
+  font-size: 2rem;
 }
 
 .paginationButton:hover {

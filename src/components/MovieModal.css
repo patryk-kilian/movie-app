@@ -30,6 +30,7 @@
   width: 70%;
   height: 70%;
   border: 1.5rem solid #74b9ff;
+  background-color: #2d3436;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -62,7 +63,7 @@
 .closeButton {
   border: none;
   background: transparent;
-  color: orange;
+  color:#74b9ff;
   font-size: 5rem;
   cursor: pointer;
   position: absolute;
@@ -70,6 +71,8 @@
   right: 10px;
   transition: all 0.2s;
   z-index: 10;
+  backface-visibility: hidden;
+  transform: scale(1);
 
   display: flex;
   justify-content: center;
@@ -77,41 +80,39 @@
 }
 
 .closeButton:hover {
-  color: orangered;
+  color: #0768b2;
   transform: scale(1.1);
-  backface-visibility: hidden;
 }
 
-.ratings {
+.info {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 10rem;
-  /* background-color: red; */
   background-color: rgba(0,0,0,.6);
 
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
-.rating {
-  color:#fff;
-  width: 7rem;
-  height: 7rem;
-  font-size: 3rem;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  /* padding: 2rem; */
-
+.infoBox {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.rating span {
-  font-size: 2rem;
+.infoName {
+  color: #0768b2;
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+
+.infoContent {
+  color: #74b9ff;
+  font-size: 3rem;
 }
 
 @keyframes appear {

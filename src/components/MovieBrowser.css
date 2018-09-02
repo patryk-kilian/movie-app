@@ -1,6 +1,11 @@
+.heading {
+  font-size: 5rem;
+  text-align: center;
+}
+
 .container {
   position: relative;
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -15,15 +20,19 @@
 .searchButton {
   position: absolute;
   top: 3rem;
-  left: 0;
+  left: 10rem;
+  background-color: transparent;
+  border-radius: 50%;
+  font-size: 5rem;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  display: flex;
+  color: #0984e3;
+  transition: all .2s;
 }
 
-.searchBar {
-  position: absolute;
-  top: 3rem;
-  left: 0;
-}
-
-.icon {
-  /* vertical-align: middle; */
+.searchButton:hover {
+  color: #0768b2;
+  transform: scale(1.1);
 }
