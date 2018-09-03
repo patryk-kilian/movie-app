@@ -27,7 +27,9 @@ class SearchForm extends Component {
             type="search"
             required
           />
-          <input className={styles.button} type="submit" />
+          <button className={styles.button} type="submit">
+            submit
+          </button>
         </form>
         <button
           className={styles.buttonTopMovies}

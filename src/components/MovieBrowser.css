@@ -30,6 +30,8 @@
   display: flex;
   color: #0984e3;
   transition: all .2s;
+  transform: scale(1);
+  backface-visibility: hidden;
 }
 
 .searchButton:hover {

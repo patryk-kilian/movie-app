@@ -41,7 +41,7 @@ class MovieModal extends Component {
                 </span>
               </div>
               <div className={styles.infoBox}>
-                <span className={styles.infoName}>relase date</span>
+                <span className={styles.infoName}>release date</span>
                 <span className={styles.infoContent}>
                   {details.release_date}
                 </span>

@@ -13,3 +13,7 @@ html {
 [data-whatintent='mouse'] *:focus {
   outline: none;
 }
+
+[data-whatintent='mouse'] *::-moz-focus-inner {
+  border: 0;
+}

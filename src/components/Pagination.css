@@ -20,6 +20,8 @@
   color: #0984e3;
   animation-name: appear;
   animation-duration: 1s;
+  transform: scale(1);
+  backface-visibility: hidden;
 }
 
 .pages {
