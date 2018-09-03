@@ -9,3 +9,7 @@ body {
 html {
   font-size: 62.5%;
 }
+
+[data-whatintent='mouse'] *:focus {
+  outline: none;
+}
